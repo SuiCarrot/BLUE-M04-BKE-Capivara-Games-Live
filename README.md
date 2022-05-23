@@ -1,36 +1,42 @@
-## Description
+# Projeto do módulo 04 do curso de backend na Blue EdTech - Capivara Games Live
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+O Capivara games live é uma plataforma de distribuição de jogos onde você poderá listar os seus jogos favoritos e joga-los onde e quando quiser desde que você possua conexão com a internet.
 
-## Installation
+### 🔧 Instalação
 
-```bash
-$ npm install
+Clone o repositório na sua maquina e instale as dependencias utilizando:
+
+```
+npm i
 ```
 
-## Running the app
+## ⚙️ Executando os testes
 
-```bash
-# development
-$ npm run start
+Após a instalação das dependencias executar os testes na seguinte ordem:
 
-# watch mode
-$ npm run start:dev
+```
+npm run start
 
-# production mode
-$ npm run start:prod
 ```
 
-## Test
+## 🛠️ Construído com
 
-```bash
-# unit tests
-$ npm run test
+* Javascript; 
+* Typescript
+* Swagger
+* NestJS
 
-# e2e tests
-$ npm run test:e2e
+## ✒️ Autores
 
-# test coverage
-$ npm run test:cov
-```
+* **Bruno de Lucca** (https://github.com/SuiCarrot);
 
+## 📄 Licença
+
+Este projeto está sob a licença (sua licença) - veja o arquivo [LICENSE.md](https://github.com/SuiCarrot/BLUE-M03-BKE-P04-Backend/blob/main/LICENSE) para detalhes.
+
+## 🎁 Expressões de gratidão
+
+* Conte a outras pessoas sobre este projeto 📢
+* Convide alguém da equipe para uma cerveja 🍺 
+* Obrigado publicamente 🤓.
+* etc.
