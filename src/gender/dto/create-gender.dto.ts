@@ -3,8 +3,8 @@ import { IsString } from 'class-validator';
 export class CreateGenderDto {
   @IsString()
   @ApiProperty({
-    description: 'Crie um novo gênero',
-    example: 'Acao',
+    description: 'Adicione um um novo gênero',
+    example: 'Grand Strategy',
   })
   name: string;
 }

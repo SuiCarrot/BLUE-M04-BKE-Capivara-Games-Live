@@ -3,10 +3,10 @@ import { IsString, IsUrl, IsUUID, Length } from 'class-validator';
 
 export class CreateProfileDto {
   @IsString()
-  @Length(3, 10)
+  @Length(3, 12)
   @ApiProperty({
-    description: 'Nome do perfil. Deve conter de 3 a 10 letras',
-    example: 'Fulano',
+    description: 'Nome do perfil. Deve conter de 3 a 12 letras',
+    example: 'Zé do RTS',
   })
   title: string;
 
@@ -14,14 +14,14 @@ export class CreateProfileDto {
   @ApiProperty({
     description: 'Foto do perfil. Deve ser uma URL.',
     example:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcMrqyW43W_KoTq_nsfBnwuPn0FXvcTe2Kgw&usqp=CAU',
+      'https://cdn.dribbble.com/users/1786581/screenshots/4159729/media/12f472eca93f1701d57514e5cadeebb6.png?compress=1&resize=400x300',
   })
   imageUrl: string;
 
   @IsUUID()
   @ApiProperty({
     description: 'Id do Usuário detentor do perfil.',
-    example: 'uuid',
+    example: 'User01',
   })
   userId: string;
 }
