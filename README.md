@@ -47,4 +47,6 @@ Este projeto está sob a licença (sua licença) - veja o arquivo [LICENSE.md](h
 * Conte a outras pessoas sobre este projeto 📢
 * Convide alguém da equipe para uma cerveja 🍺 
 * Obrigado publicamente 🤓.
+* Dê uma nota alta pro trabalho.
+* Adicione na Steam "Tio Cenora"
 * etc.
