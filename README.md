@@ -16,6 +16,8 @@ Clone o repositório na sua maquina e instale as dependencias utilizando:
 npm i
 ```
 
+Crie um arquivo **.env** seguindo o exemplo do arquivo **.env.example** completando os dados com o seu banco de dados.
+
 ## ⚙️ Executando os testes
 
 Após a instalação das dependencias executar os testes na seguinte ordem:
@@ -45,4 +47,6 @@ Este projeto está sob a licença (sua licença) - veja o arquivo [LICENSE.md](h
 * Conte a outras pessoas sobre este projeto 📢
 * Convide alguém da equipe para uma cerveja 🍺 
 * Obrigado publicamente 🤓.
+* Dê uma nota alta pro trabalho.
+* Adicione na Steam "Tio Cenora"
 * etc.
