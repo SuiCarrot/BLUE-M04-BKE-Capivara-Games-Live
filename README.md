@@ -16,6 +16,8 @@ Clone o repositório na sua maquina e instale as dependencias utilizando:
 npm i
 ```
 
+Crie um arquivo **.env** seguindo o exemplo do arquivo **.env.example** completando os dados com o seu banco de dados.
+
 ## ⚙️ Executando os testes
 
 Após a instalação das dependencias executar os testes na seguinte ordem:
