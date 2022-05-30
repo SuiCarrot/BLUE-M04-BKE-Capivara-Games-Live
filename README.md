@@ -31,6 +31,7 @@ npm run start
 * Typescript
 * Swagger
 * NestJS
+* Prisma
 
 ## ✒️ Autores
 
