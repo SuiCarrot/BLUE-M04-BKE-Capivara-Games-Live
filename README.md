@@ -2,6 +2,12 @@
 
 O Capivara games live é uma plataforma de distribuição de jogos onde você poderá listar os seus jogos favoritos e joga-los onde e quando quiser desde que você possua conexão com a internet.
 
+## 👯‍♀️ Clonando
+
+```bash
+git clone https://github.com/vinhas93/projeto_mod4_backend_game_center.git
+```
+
 ### 🔧 Instalação
 
 Clone o repositório na sua maquina e instale as dependencias utilizando:
