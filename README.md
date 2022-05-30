@@ -22,7 +22,6 @@ Após a instalação das dependencias executar os testes na seguinte ordem:
 
 ```
 npm run start
-
 ```
 
 ## 🛠️ Construído com
