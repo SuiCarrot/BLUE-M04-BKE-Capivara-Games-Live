@@ -11,9 +11,12 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Capivara Games Live')
     .setDescription('Aplicação para gestão dos games do usuário.')
-    .setVersion('1.0')
+    .setVersion('1.2')
     .addTag('status')
     .addTag('user')
+    .addTag('profile')
+    .addTag('game')
+    .addTag('gender')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
