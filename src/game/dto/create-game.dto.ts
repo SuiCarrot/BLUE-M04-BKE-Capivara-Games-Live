@@ -32,4 +32,11 @@ export class CreateGameDto {
     example: 2016,
   })
   year: number;
+
+  @IsString()
+  @ApiProperty({
+    description: 'Genero dos jogos',
+    example: 'Ação',
+  })
+  genres: string;
 }

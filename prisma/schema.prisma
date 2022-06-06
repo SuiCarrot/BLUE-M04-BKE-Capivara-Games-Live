@@ -41,12 +41,12 @@ model Profile {
 model Game {
   id String @id @default(uuid())
 
-  title              String        @unique
-  coverImageUrl      String        @map("cover_image")
-  description        String
-  year               Int
-  gameGenders        GameGender[]
-  gameProfiles       GameProfile[]
+  title         String        @unique
+  coverImageUrl String        @map("cover_image")
+  description   String
+  year          Int
+  gameGenders   GameGender[]
+  gameProfiles  GameProfile[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -59,11 +59,13 @@ model Gender {
 
   name        String       @unique
   gameGenders GameGender[]
+  GameProfile GameProfile[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("gender")
+
 }
 
 model GameGender {
@@ -87,9 +89,13 @@ model GameProfile {
   gameId    String  @map("game_id")
   profile   Profile @relation(fields: [profileId], references: [id])
   profileId String  @map("profile_id")
+  gender    Gender  @relation(fields: [genderId], references: [id])
+  genderId  String  @map("gender_id")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+
+  favorite Boolean @default(false)
 
   @@unique([gameId, profileId])
   @@map("game_profile")
