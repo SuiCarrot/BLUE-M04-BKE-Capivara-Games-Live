@@ -12,25 +12,23 @@ import { CreateProfileDto } from './dto/create-profile';
 import { UpdateProfileDto } from './dto/update-profile';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('profile')
+@ApiTags('Profile')
 @Controller('profile')
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
 
   @Post()
   @ApiOperation({
-    summary: 'Criar novo perfil de usuário.',
+    summary: 'Criar novo perfil.',
   })
   create(@Body() dto: CreateProfileDto) {
     return this.profileService.create(dto);
   }
 
-  @Get()
-  @ApiOperation({
-    summary: 'Listar todos os perfis.',
-  })
-  findAll() {
-    return this.profileService.findAll();
+  @Get('/profiles/:userId')
+  @ApiOperation({ summary: 'Listar todos os perfis de determinado usuário.' })
+  findAll(@Param('userId') id: string) {
+    return this.profileService.findAll(id);
   }
 
   @Get(':id')
@@ -45,11 +43,9 @@ export class ProfileController {
   @ApiOperation({
     summary: 'Editar um perfil pelo ID.',
   })
-  update(
-    @Param('id') id: string,
-    @Body() dto: UpdateProfileDto) {
-      return this.profileService.update(id, dto);
-    }
+  update(@Param('id') id: string, @Body() dto: UpdateProfileDto) {
+    return this.profileService.update(id, dto);
+  }
 
   @Delete(':id')
   @ApiOperation({

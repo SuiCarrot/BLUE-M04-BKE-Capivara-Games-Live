@@ -13,7 +13,7 @@ import { UpdateGenderDto } from './dto/update-gender.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Gender } from './entities/gender.entity';
 
-@ApiTags('gender')
+@ApiTags('Gender')
 @Controller('gender')
 export class GenderController {
   constructor(private readonly genderService: GenderService) {}
@@ -36,7 +36,7 @@ export class GenderController {
 
   @Get(':id')
   @ApiOperation({
-    summary: 'Visualizar um gênero pelo ID.',
+    summary: 'Visualizar um gênero através do ID.',
   })
   findOne(@Param('id') id: string): Promise<Gender> {
     return this.genderService.findOne(id);
@@ -44,7 +44,7 @@ export class GenderController {
 
   @Patch(':id')
   @ApiOperation({
-    summary: 'Editar gênero pelo ID.',
+    summary: 'Editar um gênero através do ID.',
   })
   update(
     @Param('id') id: string,
@@ -55,7 +55,7 @@ export class GenderController {
 
   @Delete(':id')
   @ApiOperation({
-    summary: 'Deletar gênero pelo ID.',
+    summary: 'Deletar um gênero através do ID.',
   })
   delete(@Param('id') id: string) {
     return this.genderService.delete(id);

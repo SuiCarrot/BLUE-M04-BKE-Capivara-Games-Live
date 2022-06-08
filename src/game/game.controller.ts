@@ -13,7 +13,7 @@ import { UpdateGameDto } from './dto/update-game.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Game } from './entities/game-entity';
 
-@ApiTags('game')
+@ApiTags('Game')
 @Controller('game')
 export class GameController {
   constructor(private readonly gameService: GameService) {}

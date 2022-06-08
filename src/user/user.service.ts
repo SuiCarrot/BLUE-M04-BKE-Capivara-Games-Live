@@ -9,6 +9,8 @@ import { User } from './entities/user.entity';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import * as bcrypt from 'bcrypt';
+import { handleError } from 'src/utils/handle-error';
+import { notFoundError } from 'src/utils/not-found';
 
 @Injectable()
 export class UserService {
@@ -39,7 +41,7 @@ export class UserService {
 
     return this.prisma.user
       .create({ data, select: this.userSelect })
-      .catch(this.handleError);
+      .catch(handleError);
   }
 
   async findAll(): Promise<User[]> {
@@ -48,7 +50,9 @@ export class UserService {
     });
 
     if (list.length === 0) {
-      throw new NotFoundException('Não existem usuários cadastrados ainda, gostaria de ser o primeiro?');
+      throw new NotFoundException(
+        'Não existem usuários cadastrados ainda, gostaria de ser o primeiro?',
+      );
     }
     return list;
   }
@@ -59,10 +63,7 @@ export class UserService {
       select: this.userSelect,
     });
 
-    if (!record) {
-      throw new NotFoundException(`O usuário com o Id: '${id}' não existe em nosso banco de dados. `);
-    }
-
+    notFoundError(record, id);
     return record;
   }
 
@@ -89,7 +90,7 @@ export class UserService {
         data,
         select: this.userSelect,
       })
-      .catch(this.handleError);
+      .catch(handleError);
   }
 
   async delete(id: string) {
@@ -98,14 +99,6 @@ export class UserService {
     await this.prisma.user.delete({
       where: { id },
     });
-    throw new HttpException('', 204);
-  }
-
-  handleError(error: Error): undefined {
-    const errorLines = error.message?.split('\n');
-    const lastErrorLine = errorLines[errorLines.length - 1].trim();
-    throw new BadRequestException(
-      lastErrorLine || 'Opa, ocorreu um pequeno erro, as capivaras da assistencia já estão trabalhando para corrigir. Por favor atualize a pagina e tente novamente.',
-    );
+    throw new HttpException('Usuário deletado com sucesso', 204);
   }
 }

@@ -50,5 +50,3 @@ export class CreateUserDto {
   })
   isAdmin: boolean;
 }
-
-

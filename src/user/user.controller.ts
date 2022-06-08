@@ -13,14 +13,14 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 
-@ApiTags('user')
+@ApiTags('User')
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
 
   @Post()
   @ApiOperation({
-    summary: 'Criar novo usuário.',
+    summary: 'Cria novo usuário.',
   })
   create(@Body() dto: CreateUserDto): Promise<User> {
     return this.userService.create(dto);
@@ -28,7 +28,7 @@ export class UserController {
 
   @Get()
   @ApiOperation({
-    summary: 'Listar todos os usuários.',
+    summary: 'Lista todos os usuários.',
   })
   findAll(): Promise<User[]> {
     return this.userService.findAll();
@@ -36,7 +36,7 @@ export class UserController {
 
   @Get(':id')
   @ApiOperation({
-    summary: 'Visualizar um usuário pelo ID.',
+    summary: 'Visualiza um usuário através do ID.',
   })
   findOne(@Param('id') id: string): Promise<User> {
     return this.userService.findOne(id);
@@ -44,7 +44,7 @@ export class UserController {
 
   @Patch(':id')
   @ApiOperation({
-    summary: 'Editar dados do usuário pelo ID.',
+    summary: 'Edita dados do usuário através do ID.',
   })
   update(@Param('id') id: string, @Body() dto: UpdateUserDto): Promise<User> {
     return this.userService.update(id, dto);
@@ -52,7 +52,7 @@ export class UserController {
 
   @Delete(':id')
   @ApiOperation({
-    summary: 'Deletar Usuário pelo ID.',
+    summary: 'Deleta Usuário pelo ID.',
   })
   delete(@Param('id') id: string) {
     return this.userService.delete(id);

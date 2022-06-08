@@ -30,7 +30,7 @@ model Profile {
   imageUrl     String        @map("image_url")
   user         User          @relation(fields: [userId], references: [id])
   userId       String        @map("user_id")
-  gameProfiles GameProfile[]
+  games        GameProfile[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -41,12 +41,15 @@ model Profile {
 model Game {
   id String @id @default(uuid())
 
-  title         String        @unique
-  coverImageUrl String        @map("cover_image")
-  description   String
-  year          Int
-  gameGenders   GameGender[]
-  gameProfiles  GameProfile[]
+  title              String        @unique
+  coverImageUrl      String        @map("cover_image")
+  description        String
+  year               Int
+  imdbScore          Float         @map("imb_score")
+  trailerYouTubeUrl  String        @map("trailer_youtube_url")
+  gameplayYouTubeUrl String        @map("gameplay_youtube_url")
+  genders            Gender[]
+  games              GameProfile[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -58,8 +61,7 @@ model Gender {
   id String @id @default(uuid())
 
   name        String       @unique
-  gameGenders GameGender[]
-  GameProfile GameProfile[]
+  games       Game[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -68,20 +70,6 @@ model Gender {
 
 }
 
-model GameGender {
-  id String @id @default(uuid())
-
-  game     Game   @relation(fields: [gameId], references: [id])
-  gameId   String @map("game_id")
-  gender   Gender @relation(fields: [genderId], references: [id])
-  genderId String @map("gender_id")
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  @@unique([gameId, genderId])
-  @@map("game_gender")
-}
 
 model GameProfile {
   id        String  @id @default(uuid())
@@ -89,14 +77,11 @@ model GameProfile {
   gameId    String  @map("game_id")
   profile   Profile @relation(fields: [profileId], references: [id])
   profileId String  @map("profile_id")
-  gender    Gender  @relation(fields: [genderId], references: [id])
-  genderId  String  @map("gender_id")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   favorite Boolean @default(false)
 
-  @@unique([gameId, profileId])
   @@map("game_profile")
 }

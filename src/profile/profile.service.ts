@@ -10,6 +10,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { Profile } from './entities/profile.entity';
 import { Prisma } from '@prisma/client';
 import { handleError } from 'src/utils/handle-error';
+import { notFoundError } from 'src/utils/not-found';
 
 @Injectable()
 export class ProfileService {
@@ -31,6 +32,7 @@ export class ProfileService {
         data,
         select: {
           id: true,
+          title: true,
           imageUrl: true,
           user: {
             select: {
@@ -43,26 +45,28 @@ export class ProfileService {
       .catch(handleError);
   }
 
-  async findAll() {
+  async findAll(userId: string) {
     const list = await this.prisma.profile.findMany({
+      where: { userId },
       select: {
         id: true,
         title: true,
-        userId: true,
         imageUrl: true,
-        _count: { select: { gameProfiles: true } },
+        _count: { select: { games: true } },
       },
     });
 
     if (list.length === 0) {
-      throw new NotFoundException('Não existem perfis cadastrados.');
+      throw new NotFoundException(
+        'Não existem perfis cadastrados para este usuário.',
+      );
     }
     return list;
   }
 
   async findOne(id: string) {
     const record = await this.prisma.profile.findUnique({
-      where: { id },
+      where: { id: id },
       select: {
         title: true,
         imageUrl: true,
@@ -70,30 +74,13 @@ export class ProfileService {
           select: {
             id: true,
             name: true,
-
             _count: { select: { profiles: true } },
-          },
-        },
-        gameProfiles: {
-          select: {
-            game: {
-              select: {
-                id: true,
-                title: true,
-                gameGenders: true,
-              },
-            },
           },
         },
       },
     });
 
-    if (!record) {
-      throw new NotFoundException(
-        `Registro com o Id '${id}' não encontrado ou é inválido. `,
-      );
-    }
-
+    notFoundError(record, id);
     return record;
   }
 
@@ -115,18 +102,9 @@ export class ProfileService {
 
   async delete(id: string) {
     await this.findOne(id);
-
     await this.prisma.profile.delete({
       where: { id },
     });
     throw new HttpException('', 204);
-  }
-    handleError(error: Error): undefined {
-    const errorLines = error.message?.split('\n');
-    const lastErrorLine = errorLines[errorLines.length - 1].trim();
-
-    throw new BadRequestException(
-      lastErrorLine || 'Opa, ocorreu um pequeno erro, as capivaras da assistencia já estão trabalhando para corrigir. Por favor atualize a pagina e tente novamente.',
-    );
   }
 }

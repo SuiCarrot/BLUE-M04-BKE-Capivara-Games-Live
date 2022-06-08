@@ -33,10 +33,32 @@ export class CreateGameDto {
   })
   year: number;
 
+  @IsNumber()
+  @IsPositive()
+  @ApiProperty({
+    description: 'Score no IMDB',
+    example: 8.7,
+  })
+  imdbScore: number;
+
+  @IsUrl()
+  @ApiProperty({
+    description: 'Trailer do Jogo.',
+    example: 'https://youtu.be/zzNs4-kRLaE',
+  })
+  trailerYouTubeUrl: string;
+
+  @IsUrl()
+  @ApiProperty({
+    description: 'Gameplay do Jogo.',
+    example: 'https://www.youtube.com/watch?v=P2tfSh0cw8E',
+  })
+  gameplayYouTubeUrl: string;
+
   @IsString()
   @ApiProperty({
     description: 'Genero dos jogos',
     example: 'Ação',
   })
-  genres: string;
+  genders: string;
 }
