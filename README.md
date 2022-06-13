@@ -5,7 +5,7 @@ O Capivara games live é uma plataforma de distribuição de jogos onde você po
 ## 👯‍♀️ Clonando
 
 ```bash
-
+git clone https://github.com/SuiCarrot/BLUE-M04-BKE-Capivara-Games-Live.git
 ```
 
 ### 🔧 Instalação
