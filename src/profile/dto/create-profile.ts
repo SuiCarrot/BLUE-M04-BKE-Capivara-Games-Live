@@ -6,7 +6,7 @@ export class CreateProfileDto {
   @Length(3, 12)
   @ApiProperty({
     description: 'Nome do perfil. Deve conter de 3 a 12 letras',
-    example: 'Zé do RTS',
+    example: 'MultiRobson',
   })
   title: string;
 
@@ -21,7 +21,7 @@ export class CreateProfileDto {
   @IsUUID()
   @ApiProperty({
     description: 'Id do Usuário detentor do perfil.',
-    example: 'User01',
+    example: 'Usuário 06',
   })
   userId: string;
 }

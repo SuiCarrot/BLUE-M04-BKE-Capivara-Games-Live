@@ -11,6 +11,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import * as bcrypt from 'bcrypt';
 import { handleError } from 'src/utils/handle-error';
 import { notFoundError } from 'src/utils/not-found';
+import { isAdmin } from 'src/utils/admin';
 
 @Injectable()
 export class UserService {
@@ -44,7 +45,12 @@ export class UserService {
       .catch(handleError);
   }
 
-  async findAll(): Promise<User[]> {
+
+
+  /////////////////////////////////////////////////// ADMIN
+
+  async findAll(user: User) {
+    isAdmin(user);
     const list = await this.prisma.user.findMany({
       select: this.userSelect,
     });
@@ -57,7 +63,9 @@ export class UserService {
     return list;
   }
 
-  async findOne(id: string): Promise<User> {
+  async findOne(id: string, user:User) {
+    isAdmin(user);
+
     const record = await this.prisma.user.findUnique({
       where: { id },
       select: this.userSelect,
@@ -67,8 +75,31 @@ export class UserService {
     return record;
   }
 
-  async update(id: string, dto: UpdateUserDto): Promise<User> {
-    await this.findOne(id);
+
+  async deleteUser(id: string, user:User) {
+    isAdmin(user)
+    await this.findOne(id, user);
+
+    await this.prisma.user.delete({
+      where: { id },
+    });
+    throw new HttpException('Usuário deletado com sucesso', 204);
+  }
+
+  ///////////////////////////  MY ACCOUNT
+  async myAccount(userId: string) {
+    const record = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: this.userSelect,
+    });
+
+    return record;
+  }
+
+
+
+  async update(userId: string, dto: UpdateUserDto){
+    await this.myAccount(userId);
 
     if (dto.password) {
       if (dto.password != dto.confirmPassword) {
@@ -86,19 +117,20 @@ export class UserService {
 
     return this.prisma.user
       .update({
-        where: { id },
+        where: { id: userId },
         data,
         select: this.userSelect,
       })
       .catch(handleError);
   }
 
-  async delete(id: string) {
-    await this.findOne(id);
+  async delete(userId: string) {
+    await this.myAccount(userId);
 
     await this.prisma.user.delete({
-      where: { id },
+      where: { id: userId },
     });
-    throw new HttpException('Usuário deletado com sucesso', 204);
+    throw new HttpException('Usuário deletado com sucesso.', 204);
   }
+
 }

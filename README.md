@@ -5,7 +5,7 @@ O Capivara games live é uma plataforma de distribuição de jogos onde você po
 ## 👯‍♀️ Clonando
 
 ```bash
-git clone https://github.com/vinhas93/projeto_mod4_backend_game_center.git
+
 ```
 
 ### 🔧 Instalação
@@ -28,7 +28,7 @@ npm run start
 
 ## 🛠️ Construído com
 
-* Javascript; 
+* Javascript;
 * Typescript
 * Swagger
 * NestJS
@@ -45,7 +45,7 @@ Este projeto está sob a licença (sua licença) - veja o arquivo [LICENSE.md](h
 ## 🎁 Expressões de gratidão
 
 * Conte a outras pessoas sobre este projeto 📢
-* Convide alguém da equipe para uma cerveja 🍺 
+* Convide alguém da equipe para uma cerveja 🍺
 * Obrigado publicamente 🤓.
 * Dê uma nota alta pro trabalho.
 * Adicione na Steam "Tio Cenora"

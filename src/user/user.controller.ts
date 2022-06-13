@@ -6,55 +6,87 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user-dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { LoggedUser } from 'src/auth/logged-user.decorator';
 
 @ApiTags('User')
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @Post()
+  @Post('user')
   @ApiOperation({
-    summary: 'Cria novo usuário.',
+    summary: 'Criar novo usuário.',
   })
-  create(@Body() dto: CreateUserDto): Promise<User> {
+  create(@Body() dto: CreateUserDto) {
     return this.userService.create(dto);
   }
 
-  @Get()
+  @Get('user')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Lista todos os usuários.',
+    summary: 'Only Admin - Listar todos os usuários.',
   })
-  findAll(): Promise<User[]> {
-    return this.userService.findAll();
+  findAll(@LoggedUser() user: User) {
+    return this.userService.findAll(user);
   }
 
-  @Get(':id')
+  @Get('user/:id')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Visualiza um usuário através do ID.',
+    summary: 'Only Admin - Visualizar um usuário pelo ID.',
   })
-  findOne(@Param('id') id: string): Promise<User> {
-    return this.userService.findOne(id);
+  findOne(@LoggedUser() user: User, @Param('id') id: string) {
+    return this.userService.findOne(id, user);
   }
 
-  @Patch(':id')
+
+  @Delete('user/:id')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Edita dados do usuário através do ID.',
+    summary: 'Only Admin - Deletar conta de usuário por Id .',
   })
-  update(@Param('id') id: string, @Body() dto: UpdateUserDto): Promise<User> {
-    return this.userService.update(id, dto);
+  deleteUser(@LoggedUser() user: User, @Param('id') id: string) {
+    return this.userService.deleteUser(id, user);
   }
 
-  @Delete(':id')
+  @Get('/my-account')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Deleta Usuário pelo ID.',
+    summary: 'Visualizar informações da conta Logada.',
   })
-  delete(@Param('id') id: string) {
-    return this.userService.delete(id);
+  myAccount(@LoggedUser() user: User) {
+    return this.userService.myAccount(user.id);
+  }
+
+  @Patch('/my-account')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Editar dados da conta logada.',
+  })
+  update(@LoggedUser() user: User, @Body() dto: UpdateUserDto) {
+    return this.userService.update(user.id, dto);
+  }
+
+  @Delete('/my-account')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Deletar conta de usuário que está logada.',
+  })
+  delete(@LoggedUser() user: User) {
+    return this.userService.delete(user.id);
   }
 }

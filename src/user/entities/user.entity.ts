@@ -1,7 +1,7 @@
 import { Profile } from 'src/profile/entities/profile.entity';
 
 export class User {
-  id?: any;
+  id?: string;
   name: string;
   email: string;
   password: string;

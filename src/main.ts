@@ -12,6 +12,7 @@ async function bootstrap() {
     .setTitle('Capivara Games Live')
     .setDescription('Aplicação para gestão dos games do usuário.')
     .setVersion('1.3')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

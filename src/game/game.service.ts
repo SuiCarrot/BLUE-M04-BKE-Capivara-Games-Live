@@ -3,15 +3,17 @@ import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { Game } from './entities/game-entity';
-import { Prisma } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
 import { handleError } from '../utils/handle-error';
 import { notFoundError } from 'src/utils/not-found';
+import { isAdmin } from 'src/utils/admin';
 
 @Injectable()
 export class GameService {
   constructor(private readonly prisma: PrismaService) {}
+  async create(user: User, dto: CreateGameDto) {
+   isAdmin(user)
 
-  async create(dto: CreateGameDto) {
     const data: Prisma.GameCreateInput = {
       title: dto.title,
       coverImageUrl: dto.coverImageUrl,
@@ -49,7 +51,8 @@ export class GameService {
     return record;
   }
 
-  async update(id: string, dto: UpdateGameDto): Promise<Game> {
+  async update(id: string, dto: UpdateGameDto, user: User): Promise<Game> {
+    isAdmin(user)
     await this.findOne(id);
 
     const data = { ...dto };
@@ -62,7 +65,8 @@ export class GameService {
       .catch(handleError);
   }
 
-  async delete(id: string) {
+  async delete(id: string, user:User) {
+    isAdmin(user)
     await this.findOne(id);
 
     await this.prisma.game.delete({
